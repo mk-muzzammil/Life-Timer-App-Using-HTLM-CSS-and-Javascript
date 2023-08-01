@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life-Timer|App</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/7a4b62b0a4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="mainContainer">
+    <div id="initialtextContainer" class="textContainer">
+      <h1 class="heading" id="MainHeading">Kindly enter your Date of Birth</h1>
+    </div>
+    <div id="AfterDOBButtonClicktextContainer" class="textContainer hide">
+      <div class="center">
+        <h1 class="heading" id="MainHeading">How much life journey covered till now</h1>
+        <div class="timeContainer">
+          <h2 id="year">
+            <div class="timediv yearDiv">0</div>
+            Year
+          </h2>
+          <h2 id="Month">
+            <div class="timediv MonthDiv">0</div>
+            Month
+          </h2>
+          <h2 id="Day">
+            <div class="timediv DayDiv">0</div>
+            Day
+          </h2>
+          <h2 id="Hours">
+            <div class="timediv HoursDiv">0</div>
+            Hours
+          </h2>
+          <h2 id="Minutes">
+            <div class="timediv MinutesDiv">0</div>
+            Minutes
+          </h2>
+          <h2 id="Seconds">
+            <div class="timediv SecondsDiv">0</div>
+            Seconds
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="settingContainer">
+      <div class="settingIcon" id="settingIcon">
+        <i class="fa fa-cog" style="color: #ffffff"></i>
+      </div>
+      <div class="DobInputContainer hide" id="settingContent">
+        <input type="date" name="DateOfBirth" id="dobInput" />
+        <button type="button" id="dobButton">Add DOB</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./index.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+
+
+*{
+  padding: 0;margin: 0;box-sizing: border-box;
+}
+
+
+.mainContainer{
+  height: 100vh;
+  width: 100vw;
+  background-image: url(images/mountain.jpg);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  /* Two ways to center the inner textContainer */
+
+  /* First: */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+
+}
+.textContainer{
+  /* Second */
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width:100vw;
+}
+
+.textContainer h1,.center h1{
+  font-size: 2.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  text-transform: capitalize;
+  color: black;
+  
+}
+.center{
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+.center h2{
+  color: black;
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  text-transform: capitalize;
+  
+}
+.timediv{
+  color: white !important;
+}
+.timeContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  
+  gap:2.3rem;
+}
+.settingContainer{
+  position: absolute;
+  bottom: 15px;
+  right:15px;
+  display: flex;
+  flex-direction: row;
+  gap:0.7rem;
+  text-align: center;
+  /* border:1px solid red; */
+  padding: 0.3rem;
+}
+.settingIcon i{
+  font-size: 2rem;
+}
+.settingIcon i:hover{
+  cursor: pointer;
+}
+.DobInputContainer{
+  display: flex;
+  gap: 0.5rem;
+}
+.DobInputContainer input ,.DobInputContainer button{
+  padding: 0px 10px;
+}
+.DobInputContainer button{
+  border-radius: 10px;
+  background-color: green;
+  border:none;
+  outline:none;
+  color:#ffffff;
+}
+
+.hide{
+  display: none;
+}
