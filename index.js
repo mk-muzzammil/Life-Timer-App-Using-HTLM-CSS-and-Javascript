@@ -1,68 +1,114 @@
-let isDOBOpen = false;
+let isDobOpen = true;
+
 let dateOfBirth;
-const settingIcon = document.getElementById("settingIcon");
-const settingContent = document.getElementById("settingContent");
-const initialTextEl = document.getElementById("initialtextContainer");
-const afterDOBBtnTxtEl = document.getElementById("AfterDOBButtonClicktextContainer");
-const dobButtonEl = document.getElementById("dobButton");
-const dobInputEl = document.getElementById("dobInput");
 
-const yearEl = document.querySelector("#year .yearDiv");
-const monthEl = document.querySelector("#Month .MonthDiv");
-const dayEl = document.querySelector("#Day .DayDiv");
-const hourEl = document.querySelector("#Hours .HoursDiv");
-const minuteEl = document.querySelector("#Minutes .MinutesDiv");
-const secondEl = document.querySelector("#Seconds .SecondsDiv");
+const setingContainerEle = document.querySelector(".DobInputContainer");
 
-const makeTwoDigitNumber = (number) => {
-  return number > 9 ? number : `0${number}`;
-};
+const settingIconEle = document.querySelector(".settingIcon");
 
-const toggleDateOfBirthSelector = () => {
-  if (isDOBOpen) {
-    settingContent.classList.add("hide");
+const dobButtonEle = document.querySelector("#dobButton");
+
+const dobinputEle = document.querySelector("#dobInput");
+const initialTextContainer = document.querySelector("#initialtextContainer");
+
+const finalTextContainer = document.querySelector(
+  "#AfterDOBButtonClicktextContainer"
+);
+
+// ===================Updating of values Selctors====
+const YearEle = document.querySelector(".yearDiv");
+const MonthEle = document.querySelector(".MonthDiv");
+const DayEle = document.querySelector(".DayDiv");
+const HoursEle = document.querySelector(".HoursDiv");
+const MinutesEle = document.querySelector(".MinutesDiv");
+const SecondsEle = document.querySelector(".SecondsDiv");
+
+const toggleSettingContent = () => {
+  if (!isDobOpen) {
+    setingContainerEle.classList.add("hide");
   } else {
-    settingContent.classList.remove("hide");
+    setingContainerEle.classList.remove("hide");
   }
-  isDOBOpen = !isDOBOpen;
+  isDobOpen = !isDobOpen;
 
-  console.log("Toggle", isDOBOpen);
+  console.log(isDobOpen);
 };
 
-const updateAge = () => {
-  const currentDate = new Date();
-  const dateDiff = currentDate - dateOfBirth;
-  const year = Math.floor(dateDiff / (1000 * 60 * 60 * 24 * 365));
-  const month = Math.floor((dateDiff / (1000 * 60 * 60 * 24 * 30)) % 12);
-  const day = Math.floor((dateDiff / (1000 * 60 * 60 * 24)) % 30); // Updated to use 30 as days in a month
-  const hour = Math.floor((dateDiff / (1000 * 60 * 60)) % 24);
-  const minute = Math.floor((dateDiff / (1000 * 60)) % 60);
-  const second = Math.floor((dateDiff / 1000) % 60);
 
-  yearEl.innerHTML = makeTwoDigitNumber(year);
-  monthEl.innerHTML = makeTwoDigitNumber(month);
-  dayEl.innerHTML = makeTwoDigitNumber(day);
-  hourEl.innerHTML = makeTwoDigitNumber(hour);
-  minuteEl.innerHTML = makeTwoDigitNumber(minute);
-  secondEl.innerHTML = makeTwoDigitNumber(second);
+const makeTwoGidigits=(number)=>{
+  return number>9 ? number : `0${number}`;
+
+}
+const updateAgeFunction = () => {
+  const todaydate = new Date();
+
+  const ageDiff = todaydate - dateOfBirth;
+
+  const year = Math.floor(ageDiff / (1000 * 365 * 24 * 60 * 60));
+  const month = Math.floor((ageDiff / (1000 * 30 * 24 * 60 * 60)) % 12);
+  const day = Math.floor((ageDiff / (1000 * 24 * 60 * 60)) % 30);
+  const hours = Math.floor((ageDiff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((ageDiff / (1000 * 60)) % 60);
+  const seconds = Math.floor((ageDiff / 1000) % 60);
+
+  YearEle.innerHTML = makeTwoGidigits(year);
+  MonthEle.innerHTML =makeTwoGidigits( month);
+  DayEle.innerHTML = makeTwoGidigits(day);
+  HoursEle.innerHTML = makeTwoGidigits(hours);
+  MinutesEle.innerHTML =makeTwoGidigits( minutes);
+  SecondsEle.innerHTML = makeTwoGidigits(seconds);
 };
+const localStorageGetter=()=>{
+  const year=localStorage.getItem("year");
+  const month=localStorage.getItem("month");
+  const date=localStorage.getItem("date");
 
-const setDOBHandler = () => {
-  const dateString = dobInputEl.value;
+  if(year && month && date){
+    dateOfBirth=new Date(year,month,date);
+  }
+  updateAgeFunction();
+  
+}
+
+const contentToggler=()=>{
+  
+  if (dateOfBirth) {
+
+    initialTextContainer.classList.add("hide");
+    finalTextContainer.classList.remove("hide");
+    setInterval(updateAgeFunction, 1000);
+  } 
+  else {
+    initialTextContainer.classList.remove("hide");
+    finalTextContainer.classList.add("hide");
+  }
+
+}
+
+const toggleMainTextContainerHandler = () => {
+
+  let dateString = dobinputEle.value;
+  
+
   dateOfBirth = dateString ? new Date(dateString) : null;
+  
+  
+  
 
   if (dateOfBirth) {
-    initialTextEl.classList.add("hide");
-    afterDOBBtnTxtEl.classList.remove("hide");
-    updateAge(); // Update age immediately
-    setInterval(() => updateAge(), 1000); // Update age every second
-  } else {
-    afterDOBBtnTxtEl.classList.add("hide");
-    initialTextEl.classList.remove("hide");
+    localStorage.setItem("year",dateOfBirth.getFullYear());
+    localStorage.setItem("month",dateOfBirth.getMonth());
+    localStorage.setItem("date",dateOfBirth.getDate());
+    
   }
+  setInterval(updateAgeFunction, 1000);
+  contentToggler();
+
+
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  dobButtonEl.addEventListener("click", setDOBHandler);
-  settingIcon.addEventListener("click", toggleDateOfBirthSelector);
-});
+localStorageGetter();
+contentToggler(); //bcz we want when we live server this project we see our local storage date running on our screen
+settingIconEle.addEventListener("click", toggleSettingContent);
+dobButtonEle.addEventListener("click", toggleMainTextContainerHandler);
+
